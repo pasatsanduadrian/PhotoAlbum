@@ -7,7 +7,10 @@ import { v4 as uuidv4 } from 'uuid';
 import db from '../models/photo';
 
 // Inițializăm ExifTool pentru extragerea metadatelor
-const exiftool = new ExifTool();
+export const exiftool = new ExifTool();
+
+// Funcție de închidere a instanței ExifTool
+export const closeExifTool = () => exiftool.end();
 
 // Configurăm multer pentru upload-uri
 const storage = multer.diskStorage({
