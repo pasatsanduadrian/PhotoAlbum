@@ -114,9 +114,9 @@ export const uploadPhotos = async (req: Request, res: Response) => {
         // Extragem timestamp-ul
         let timestamp = null;
         if (metadata.DateTimeOriginal) {
-          timestamp = new Date(metadata.DateTimeOriginal).toISOString();
+          timestamp = new Date(String(metadata.DateTimeOriginal)).toISOString();
         } else if (metadata.CreateDate) {
-          timestamp = new Date(metadata.CreateDate).toISOString();
+          timestamp = new Date(String(metadata.CreateDate)).toISOString();
         }
         
         // Generăm URL-ul pentru acces public la imagine
