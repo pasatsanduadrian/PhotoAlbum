@@ -1,2 +1,11 @@
 server/database.sqlite
 
+# Dependencies
+node_modules/
+
+# Build outputs
+server/dist/
+client/dist/
+
+# IDE settings
+.vscode/
