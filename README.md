@@ -18,6 +18,13 @@ This repository contains a small demo consisting of a Node.js/React photo album 
    python gradio_app.py
    ```
 
+   To expose the interface publicly (useful in Google Colab), set
+   the `GRADIO_SHARE` environment variable:
+
+   ```bash
+   GRADIO_SHARE=true python gradio_app.py
+   ```
+
 After launching, Gradio prints a **public URL** similar to:
 
 ```
