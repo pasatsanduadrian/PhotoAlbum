@@ -23,4 +23,4 @@ with gr.Blocks() as demo:
     gr.Markdown("# Roma Photo Map")
     gr.HTML(f"<iframe src='{frontend_url}' style='width:100%;height:600px;'></iframe>")
 
-demo.launch()
+demo.launch(share=True)
