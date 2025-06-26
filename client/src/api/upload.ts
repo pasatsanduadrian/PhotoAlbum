@@ -2,7 +2,7 @@ import axios from 'axios';
 import { IPhoto, IUploadResponse } from '../types';
 
 // URL-ul de bază pentru API
-const API_URL = 'http://localhost:3001/api';
+const API_URL = '/api';
 
 /**
  * Serviciu pentru încărcare fotografii
