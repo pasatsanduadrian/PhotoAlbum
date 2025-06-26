@@ -18,3 +18,5 @@ with gr.Blocks() as demo:
     gr.HTML("<iframe src='http://localhost:3000' style='width:100%;height:600px;'></iframe>")
 
 demo.launch(server_name="0.0.0.0", share=True)
+
+
