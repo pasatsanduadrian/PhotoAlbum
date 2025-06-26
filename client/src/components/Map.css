@@ -1,0 +1,21 @@
+.map-container {
+  height: 100%;
+}
+
+.map {
+  width: 100%;
+  height: 600px;
+}
+
+.marker-popup {
+  text-align: center;
+}
+
+.view-photos-btn {
+  margin-top: 0.5rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+}
