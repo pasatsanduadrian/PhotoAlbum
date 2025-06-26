@@ -9,7 +9,16 @@ frontend = subprocess.Popen(["npm", "run", "dev", "--", "--host", "0.0.0.0"], cw
 
 # Create a tunnel or proxy to access the frontend
 try:
-    frontend_url = gr.tunneling.create_tunnel(3000)
+    from gradio.networking import setup_tunnel
+    import secrets
+
+    frontend_url = setup_tunnel(
+        local_host="localhost",
+        local_port=3000,
+        share_token=secrets.token_urlsafe(16),
+        share_server_address=None,
+        share_server_tls_certificate=None,
+    )
 except Exception:
     frontend_url = f"/proxy/3000"
 
