@@ -1,0 +1,50 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header, .footer {
+  background: #333;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  padding: 1rem;
+}
+
+.upload-section {
+  width: 300px;
+  margin-right: 1rem;
+}
+
+.map-section {
+  flex: 1;
+}
+
+.error-notification {
+  color: red;
+  margin-top: 1rem;
+  position: relative;
+  padding-right: 1.5rem;
+}
+
+.close-error-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: red;
+}
