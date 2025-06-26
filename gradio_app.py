@@ -1,5 +1,6 @@
 import subprocess
 import atexit
+import os
 import gradio as gr
 
 # Start backend server
@@ -32,4 +33,5 @@ with gr.Blocks() as demo:
     gr.Markdown("# Roma Photo Map")
     gr.HTML(f"<iframe src='{frontend_url}' style='width:100%;height:600px;'></iframe>")
 
-demo.launch(share=True)
+share_env = os.getenv("GRADIO_SHARE", "false").lower() == "true"
+demo.launch(share=share_env)
