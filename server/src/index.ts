@@ -1,7 +1,12 @@
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
-import { uploadMiddleware, uploadPhotos, getAllPhotos } from './routes/upload';
+import {
+  uploadMiddleware,
+  uploadPhotos,
+  getAllPhotos,
+  closeExifTool,
+} from './routes/upload';
 
 // Crearea aplicației Express
 const app = express();
@@ -44,4 +49,22 @@ app.use((err: Error, req: express.Request, res: express.Response, next: express.
 // Pornirea serverului
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
+});
+
+// Închidem ExifTool la ieșirea din proces
+const shutdown = async () => {
+  try {
+    await closeExifTool();
+  } catch (err) {
+    console.error('Error closing ExifTool:', err);
+  }
+};
+
+process.on('SIGINT', async () => {
+  await shutdown();
+  process.exit();
+});
+
+process.on('exit', () => {
+  closeExifTool().catch(err => console.error('Error closing ExifTool:', err));
 });
