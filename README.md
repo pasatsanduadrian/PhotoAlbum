@@ -8,6 +8,7 @@ This repository contains a small demo consisting of a Node.js/React photo album 
 - EXIF metadata is parsed to extract GPS coordinates.
 - Photos are grouped by location and shown on an interactive map of Rome.
 - Each location opens a carousel with the photos and a short description of the nearest attraction.
+- Animated timeline view connects photos chronologically on the map and can be shared.
 
 ## Running
 

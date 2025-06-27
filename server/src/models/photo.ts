@@ -124,6 +124,31 @@ const PhotoModel = {
       throw error;
     }
   },
+
+  /**
+   * Obține fotografiile ordonate cronologic pentru timeline
+   */
+  getPhotosForTimeline: async (): Promise<IPhotoData[]> => {
+    if (!db) {
+      await initDatabase();
+    }
+
+    if (!db) {
+      throw new Error('Database connection not initialized');
+    }
+
+    try {
+      const photos = await db.all<IPhotoData[]>(
+        `SELECT * FROM photos
+         WHERE latitude IS NOT NULL AND longitude IS NOT NULL
+         ORDER BY COALESCE(timestamp, createdAt) ASC`
+      );
+      return photos;
+    } catch (error) {
+      console.error('Error fetching timeline photos:', error);
+      throw error;
+    }
+  },
   
   /**
    * Obține o fotografie după ID

@@ -158,6 +158,9 @@ const App: React.FC = () => {
       <header className="header">
         <h1>Harta Fotografiilor din Roma</h1>
         <p className="subtitle">Încărcați fotografii cu date GPS și explorați-le pe hartă</p>
+        <nav className="nav-links">
+          <a href="/timeline">Timeline</a>
+        </nav>
       </header>
       
       <main className="main-content">
