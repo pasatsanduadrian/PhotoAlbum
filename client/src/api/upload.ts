@@ -63,6 +63,27 @@ const uploadService = {
       return errorResponse;
     }
   },
+
+  /**
+   * Încarcă fotografii de la URL-uri (de ex. Google Drive)
+   * @param urls Lista URL-urilor de încărcat
+   */
+  uploadPhotosFromUrls: async (urls: string[]): Promise<IUploadResponse> => {
+    try {
+      const response = await axios.post<IUploadResponse>(`${API_URL}/upload-url`, { urls });
+      return response.data;
+    } catch (error) {
+      console.error('Error uploading photos from url:', error);
+      const errorResponse: IUploadResponse = {
+        success: false,
+        photos: [],
+        errors: [
+          error instanceof Error ? error.message : 'Eroare necunoscută la upload-ul din URL'
+        ]
+      };
+      return errorResponse;
+    }
+  },
   
   /**
    * Obține toate fotografiile din baza de date

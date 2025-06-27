@@ -19,3 +19,9 @@
   padding: 0.25rem 0.5rem;
   cursor: pointer;
 }
+
+.custom-marker-icon {
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 4px rgba(0,0,0,0.5);
+}

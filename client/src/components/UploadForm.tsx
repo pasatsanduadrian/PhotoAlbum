@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react';
-import axios from 'axios';
+import uploadService from '../api/upload';
 import { IUploadFormProps } from '../types';
 import './UploadForm.css';
 
@@ -13,6 +13,7 @@ const UploadForm: React.FC<IUploadFormProps> = ({
   const [uploading, setUploading] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [urlInput, setUrlInput] = useState<string>('');
   
   // Referință către input-ul de fișiere
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -98,32 +99,17 @@ const UploadForm: React.FC<IUploadFormProps> = ({
     setProgress(0);
     setErrorMsg(null);
     
-    const formData = new FormData();
-    files.forEach(file => {
-      formData.append('photos', file);
-    });
-    
     try {
-      const response = await axios.post('/api/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        },
-        onUploadProgress: (progressEvent) => {
-          if (progressEvent.total) {
-            const percentCompleted = Math.round(
-              (progressEvent.loaded * 100) / progressEvent.total
-            );
-            setProgress(percentCompleted);
-          }
-        }
+      const response = await uploadService.uploadPhotos(files, (percent) => {
+        setProgress(percent);
       });
-      
-      if (response.data.success) {
-        onUploadComplete(response.data.photos);
+
+      if (response.success) {
+        onUploadComplete(response.photos);
         setFiles([]);
         setProgress(0);
       } else {
-        throw new Error(response.data.error || 'Eroare la încărcarea fișierelor.');
+        throw new Error(response.errors?.join(', ') || 'Eroare la încărcarea fișierelor.');
       }
     } catch (error) {
       console.error('Upload error:', error);
@@ -139,6 +125,33 @@ const UploadForm: React.FC<IUploadFormProps> = ({
     setFiles([]);
     setProgress(0);
     setUploading(false);
+  };
+
+  const handleUploadFromUrl = async () => {
+    if (!urlInput.trim()) {
+      setErrorMsg('Introduceți un URL valid.');
+      return;
+    }
+
+    setUploading(true);
+    setProgress(0);
+    setErrorMsg(null);
+
+    try {
+      const response = await uploadService.uploadPhotosFromUrls([urlInput.trim()]);
+      if (response.success) {
+        onUploadComplete(response.photos);
+        setUrlInput('');
+      } else {
+        throw new Error(response.errors?.join(', ') || 'Eroare la încărcarea URL-ului.');
+      }
+    } catch (error) {
+      console.error('Upload URL error:', error);
+      setErrorMsg(error instanceof Error ? error.message : 'Eroare la încărcarea URL-ului.');
+      onUploadError(error instanceof Error ? error.message : 'Eroare la încărcarea URL-ului.');
+    } finally {
+      setUploading(false);
+    }
   };
   
   return (
@@ -184,6 +197,25 @@ const UploadForm: React.FC<IUploadFormProps> = ({
             Doar fișiere imagine (JPG, PNG, etc.)
           </p>
         </div>
+      </div>
+
+      {/* Upload prin URL (Google Drive sau alte surse) */}
+      <div className="url-upload">
+        <input
+          type="text"
+          value={urlInput}
+          onChange={(e) => setUrlInput(e.target.value)}
+          placeholder="Lipiti link Google Drive sau URL imagine"
+          className="url-input"
+        />
+        <button
+          type="button"
+          className="url-upload-button"
+          onClick={handleUploadFromUrl}
+          disabled={uploading || !urlInput.trim()}
+        >
+          Încarcă URL
+        </button>
       </div>
       
       {/* Lista fișierelor selectate */}
