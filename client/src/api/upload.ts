@@ -97,6 +97,19 @@ const uploadService = {
       console.error('Error fetching photos:', error);
       return [];
     }
+  },
+
+  /**
+   * Obține fotografiile pentru timeline în ordine cronologică
+   */
+  getTimelinePhotos: async (): Promise<IPhoto[]> => {
+    try {
+      const response = await axios.get<{ photos: IPhoto[] }>(`${API_URL}/photos/timeline`);
+      return response.data.photos;
+    } catch (error) {
+      console.error('Error fetching timeline photos:', error);
+      return [];
+    }
   }
 };
 

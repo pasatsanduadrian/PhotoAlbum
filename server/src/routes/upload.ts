@@ -266,3 +266,22 @@ export const getAllPhotos = async (req: Request, res: Response) => {
     });
   }
 };
+
+/**
+ * Controller pentru fotografiile ordonate pentru timeline
+ */
+export const getTimelinePhotos = async (req: Request, res: Response) => {
+  try {
+    const photos = await db.getPhotosForTimeline();
+    return res.status(200).json({
+      success: true,
+      photos
+    });
+  } catch (error) {
+    console.error('Error fetching timeline photos:', error);
+    return res.status(500).json({
+      success: false,
+      error: 'A apărut o eroare la obținerea fotografiilor pentru timeline: ' + (error instanceof Error ? error.message : 'Eroare necunoscută')
+    });
+  }
+};

@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
-import { uploadMiddleware, uploadPhotos, uploadPhotosFromUrl, getAllPhotos } from './routes/upload';
+import { uploadMiddleware, uploadPhotos, uploadPhotosFromUrl, getAllPhotos, getTimelinePhotos } from './routes/upload';
 
 // Crearea aplicației Express
 const app = express();
@@ -18,6 +18,7 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 app.post('/api/upload', uploadMiddleware, uploadPhotos);
 app.post('/api/upload-url', uploadPhotosFromUrl);
 app.get('/api/photos', getAllPhotos);
+app.get('/api/photos/timeline', getTimelinePhotos);
 
 // Ruta pentru verificarea sănătății serverului
 app.get('/health', (req, res) => {

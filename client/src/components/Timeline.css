@@ -1,0 +1,20 @@
+.timeline-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.timeline-container .map {
+  height: 400px;
+  width: 100%;
+}
+
+.timeline-photo-info {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.timeline-photo-info img {
+  max-width: 100%;
+  height: auto;
+}
