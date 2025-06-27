@@ -207,12 +207,23 @@ export const uploadPhotosFromUrl = async (req: Request, res: Response) => {
       let downloadUrl = url;
 
       // Transformăm link-urile Google Drive în link direct de descărcare
-      const driveMatch = url.match(/https?:\/\/drive\.google\.com\/(?:file\/d\/|open\?id=)([^/&?#]+)/);
+      const driveMatch = url.match(
+        /https?:\/\/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?id=|uc\?export=download&id=)([^/&?#]+)/
+      );
       if (driveMatch && driveMatch[1]) {
         downloadUrl = `https://drive.google.com/uc?export=download&id=${driveMatch[1]}`;
       }
 
-      const response = await axios.get(downloadUrl, { responseType: 'arraybuffer' });
+      // Link-urile de album Google Photos nu pot fi descărcate direct
+      const gphotosAlbum = url.match(/https?:\/\/photos\.app\.goo\.gl\//);
+      if (gphotosAlbum) {
+        throw new Error('Linkurile de album Google Photos nu sunt suportate');
+      }
+
+      const response = await axios.get(downloadUrl, {
+        responseType: 'arraybuffer',
+        maxRedirects: 10
+      });
       const ext = path.extname(new URL(downloadUrl).pathname) || '.jpg';
       const filename = `${uuidv4()}${ext}`;
       const filePath = path.join(uploadDir, filename);
