@@ -2,6 +2,13 @@
 
 This repository contains a small demo consisting of a Node.js/React photo album application served inside a Gradio interface.
 
+## Features
+
+- Upload photos from local files or via public links (including Google Drive).
+- EXIF metadata is parsed to extract GPS coordinates.
+- Photos are grouped by location and shown on an interactive map of Rome.
+- Each location opens a carousel with the photos and a short description of the nearest attraction.
+
 ## Running
 
 1. Install dependencies for the Node.js frontend and backend:

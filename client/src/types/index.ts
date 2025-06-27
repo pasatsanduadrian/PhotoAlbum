@@ -66,6 +66,8 @@ export interface IPhotoCarouselProps {
   onClose?: () => void;
   onChangeIndex?: (index: number) => void;
   currentIndex?: number;
+  attractionName?: string;
+  attractionDescription?: string;
 }
 
 // Proprietăți pentru componenta Modal

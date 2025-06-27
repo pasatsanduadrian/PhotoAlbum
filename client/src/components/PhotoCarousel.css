@@ -29,3 +29,10 @@
   font-weight: bold;
   margin-right: 0.25rem;
 }
+
+.attraction-info {
+  text-align: center;
+  background-color: #222;
+  color: #fff;
+  padding: 0.5rem;
+}
