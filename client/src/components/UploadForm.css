@@ -89,3 +89,24 @@
   padding: 0.5rem 1rem;
   cursor: pointer;
 }
+
+.url-upload {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.url-input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+}
+
+.url-upload-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: #28a745;
+  color: white;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
