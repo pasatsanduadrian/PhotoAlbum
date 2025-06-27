@@ -8,7 +8,9 @@ const PhotoCarousel: React.FC<IPhotoCarouselProps> = ({
   photos,
   onClose,
   onChangeIndex,
-  currentIndex = 0
+  currentIndex = 0,
+  attractionName,
+  attractionDescription
 }) => {
   // Formatarea datei din timestamp-ul fotografiei
   const formatDate = (timestamp: string | null): string => {
@@ -57,6 +59,12 @@ const PhotoCarousel: React.FC<IPhotoCarouselProps> = ({
   
   return (
     <div className="photo-carousel-container">
+      {attractionName && (
+        <div className="attraction-info">
+          <h3>{attractionName}</h3>
+          {attractionDescription && <p>{attractionDescription}</p>}
+        </div>
+      )}
       <Carousel
         selectedItem={currentIndex}
         onChange={onChangeIndex}

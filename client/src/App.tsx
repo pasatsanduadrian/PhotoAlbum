@@ -39,6 +39,21 @@ const ROME_ATTRACTIONS: Record<string, IAttraction> = {
     name: 'Vatican',
     description: 'Piazza San Pietro se află în Vatican la picioarele Bazilicii. Una dintre cele mai faimoase piețe din lume.',
     coords: [41.9022, 12.4534]
+  },
+  'St. Peter\'s Basilica': {
+    name: 'Bazilica Sf. Petru',
+    description: 'Cea mai mare biserică catolică din lume, un simbol al creștinismului și capodoperă a arhitecturii renascentiste.',
+    coords: [41.9022, 12.4539]
+  },
+  'Castel Sant\'Angelo': {
+    name: 'Castel Sant\'Angelo',
+    description: 'Fortăreață circulară situată pe malul Tibrului, legată de Vatican printr-un coridor secret.',
+    coords: [41.9039, 12.4663]
+  },
+  'Piazza Navona': {
+    name: 'Piazza Navona',
+    description: 'Una dintre cele mai cunoscute piețe baroce din Roma, celebră pentru Fontana dei Quattro Fiumi.',
+    coords: [41.8989, 12.4731]
   }
 };
 
@@ -83,6 +98,14 @@ const App: React.FC = () => {
   const modalTitle = nearestAttraction
     ? ROME_ATTRACTIONS[nearestAttraction].name
     : (selectedGroupData?.photos[0]?.title || 'Fotografie din Roma');
+
+  const carouselAttractionName = nearestAttraction
+    ? ROME_ATTRACTIONS[nearestAttraction].name
+    : undefined;
+
+  const carouselAttractionDescription = nearestAttraction
+    ? ROME_ATTRACTIONS[nearestAttraction].description
+    : undefined;
   
   // Încărcăm fotografiile la inițializarea componentei
   useEffect(() => {
@@ -175,9 +198,11 @@ const App: React.FC = () => {
         description={modalDescription}
       >
         {selectedGroupData && (
-          <PhotoCarousel 
+          <PhotoCarousel
             photos={selectedGroupData.photos}
             onClose={handleModalClose}
+            attractionName={carouselAttractionName}
+            attractionDescription={carouselAttractionDescription}
           />
         )}
       </Modal>
